@@ -1,17 +1,15 @@
 import { GrowthBook, GrowthBookProvider } from "@growthbook/growthbook-react";
-import { json } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { DemoComponent } from "~/components/test-child";
 
-export const loader = async () => {
-  if (!process.env.GROWTHBOOK_FEATURE_URL)
-    throw new Error("GROWTHBOOK_FEATURE_URL env variable required");
-
+export const loader: LoaderFunction = async ({ request }) => {
+  const { origin } = new URL(request.url);
   const growthbookFeatures = await fetch(
-    process.env.GROWTHBOOK_FEATURE_URL
+    `${origin}/growthbook-cache-mirror`
   ).then((res) => res.json());
 
-  return json(growthbookFeatures);
+  return growthbookFeatures;
 };
 
 export default function Index() {

@@ -1,7 +1,7 @@
 import { useFeature } from "@growthbook/growthbook-react";
 
 export const DemoComponent = () => {
-  const { on: featureOn } = useFeature("test-feature");
+  const { on: featureOn } = useFeature("nps-enabled");
 
   if (featureOn) return <div>Feature On</div>;
 

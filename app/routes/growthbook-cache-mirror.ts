@@ -4,9 +4,9 @@ export const loader = async () => {
 
   const growthbookFeatures = await fetch(
     process.env.GROWTHBOOK_FEATURE_URL
-  ).then((res) => res.json());
+  ).then((res) => res.text());
 
-  return new Response(JSON.stringify(growthbookFeatures), {
+  return new Response(growthbookFeatures, {
     status: 200,
     headers: {
       "Content-Type": "application/json",

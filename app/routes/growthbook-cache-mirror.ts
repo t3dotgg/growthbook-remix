@@ -2,11 +2,9 @@ export const loader = async () => {
   if (!process.env.GROWTHBOOK_FEATURE_URL)
     throw new Error("GROWTHBOOK_FEATURE_URL env variable required");
 
-  const growthbookFeatures = await fetch(
-    process.env.GROWTHBOOK_FEATURE_URL
-  ).then((res) => res.text());
+  const gbResponse = await fetch(process.env.GROWTHBOOK_FEATURE_URL);
 
-  return new Response(growthbookFeatures, {
+  return new Response(gbResponse.body, {
     status: 200,
     headers: {
       "Content-Type": "application/json",
